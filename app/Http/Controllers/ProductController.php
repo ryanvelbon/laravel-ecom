@@ -19,13 +19,7 @@ class ProductController extends Controller
         $product->sku = $request['sku'];
         $product->price = $request['price'];
 
-        try {
-            $product->save();
-        }
-        catch(QueryException $e){
-            return Redirect::back()->withInput()
-                                    ->withError($e->getMessage());
-        }
+        $product->save(); // code was refactored so that exception is caught outside of this function as otherwise there are complications with Redirect::back()
     }
 
     public function index()
@@ -43,9 +37,15 @@ class ProductController extends Controller
     {
         $product = new Product();
 
-        $this->store_or_update($product, $request);
+        try {
+            $this->store_or_update($product, $request);
+        }
+        catch(QueryException $e){
+            return Redirect::back()->withInput()
+                                    ->withError($e->getMessage());
+        }
 
-        return redirect()->route('admin.dashboard')->withSuccess("Product added to database.");
+        return redirect()->route('admin.products.index')->withSuccess("Product added to database.");
     }
 
     public function show($slug)
@@ -64,15 +64,21 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        $this->store_or_update($product, $request);
+        try {
+            $this->store_or_update($product, $request);
+        }
+        catch(QueryException $e){
+            return Redirect::back()->withInput()
+                                    ->withError($e->getMessage());
+        }
 
-        return redirect()->route('admin.dashboard')->withSuccess("Product has been updated.");
+        return redirect()->route('admin.products.index')->withSuccess("Product has been updated.");
     }
 
     public function destroy($id)
     {
         Product::destroy($id);
 
-        return redirect()->route('admin.dashboard')->withSuccess("Product has been deleted.");
+        return redirect()->route('admin.products.index')->withSuccess("Product has been deleted.");
     }
 }

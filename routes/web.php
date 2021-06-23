@@ -24,9 +24,9 @@ Route::post('/admin/login', [AdminController::class, 'postLogin'])->name('admin.
 Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 
-Route::resource('/products', ProductController::class)->only(['index', 'show']);
+Route::resource('/products', ProductController::class)->only(['show']);
 
 
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
-	Route::resource('/products', ProductController::class)->except(['index', 'show']);
+	Route::resource('/products', ProductController::class)->except(['show']);
 });
