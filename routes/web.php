@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\CartController;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 
@@ -30,3 +30,7 @@ Route::resource('/products', ProductController::class)->only(['show']);
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 	Route::resource('/products', ProductController::class)->except(['show']);
 });
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add-item', [CartController::class, 'addItem'])->name('cart.addItem');
+Route::put('/cart/{item}/remove-item', [CartController::class, 'removeItem'])->name('cart.removeItem');

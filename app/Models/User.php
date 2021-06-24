@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function getCartAttribute()
+    {
+        return CartItem::where('user_id', $this->id)
+                        ->where('active', 1)
+                        ->get();
+    }
 }

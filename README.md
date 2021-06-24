@@ -26,3 +26,8 @@ Drew inspiration from the following designs:
 # SHOPPING CART
 
 This app includes a custom cart rather than integrating with a 3rd party solution such as Snipcart which would eat into our shop's profits.
+
+# PENETRATION TESTING
+
+1. Can hacker add/remove items to/from someone else's cart?
+2. 
