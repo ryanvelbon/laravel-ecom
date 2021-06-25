@@ -14,7 +14,6 @@
 @endsection
 
 @section('content')
-	<h1>This is the Home Page | Your Session token: {{Session::token() }}</h1>
 	<div class="flex-container">
 		@foreach($products as $product)
 			<div class="card">
@@ -23,7 +22,7 @@
 					<a href="/products/{{$product->slug}}" class="card-link">{{$product->title}}</a>
 					<p><small>{{substr($product->description, 0, 60)}}</small></p>
 					<strong>€{{$product->price}}</strong>
-					<form class="ajax-form" method="POST" action="{{ route('cart.addItem') }}">
+					<form class="add-to-cart-form" method="POST" action="{{ route('cart.addItem') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="product_id" value="{{ $product->id }}">
 						<input type="number" name="quantity" value="1">

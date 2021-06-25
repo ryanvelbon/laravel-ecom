@@ -27,7 +27,9 @@ class CartController extends Controller
 
     	$item->save();
 
-    	return "Item added to cart. Send an AJAX request instead...";
+        // sleep(3); // uncomment this to see AJAX responsiveness
+
+        return response()->json(['success' => 'Item added to cart.']);
     }
 
     public function removeItem(Request $request, $id)
