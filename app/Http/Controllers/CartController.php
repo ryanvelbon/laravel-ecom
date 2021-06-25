@@ -38,6 +38,30 @@ class CartController extends Controller
     	return Redirect::back()->withSuccess("Item has been removed from your cart.");
     }
 
+    public function removeItemsAll(Request $request)
+    {
+        if(Auth::check()){
+            $items = Auth::user()->cart;
+        }else{
+            $items = CartItem::where('session_token', Session::token())->where('active', '1')->get();
+        }
+
+        foreach($items as $item){
+            $item->active = false;
+            $item->save();
+        }
+
+        return Redirect::back()->withSuccess("Your basket has been emptied.");
+    }
+
+    public function updateItem(Request $request, $id)
+    {
+        $item = CartItem::find($id);
+        $item->quantity = $request['quantity'];
+        $item->save();
+        return Redirect::back()->withSuccess("Cart item has been updated.");
+    }
+
     public function index()
     {
     	if(Auth::check()){

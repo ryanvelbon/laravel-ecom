@@ -27,7 +27,12 @@ Drew inspiration from the following designs:
 
 This app includes a custom cart rather than integrating with a 3rd party solution such as Snipcart which would eat into our shop's profits.
 
-# PENETRATION TESTING
+# BUGS / SECURITY VULNERABILITIES / REFACTORING
 
 1. Can hacker add/remove items to/from someone else's cart?
-2. 
+2. User can enter negative quantities
+3. In cart_items table, add an additional field 'status' with possible values: in cart, ordered, removed.
+	When item is removed or ordered, 'active' becomes "false"
+4. When user logs in, store session data into DB.
+
+

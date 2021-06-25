@@ -6,6 +6,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<meta name="_token" content="{{ csrf_token() }}">
+
 	@yield('css')
 </head>
 <body>
@@ -23,6 +26,16 @@
 				<a href="{{ route('login') }}">Login</a>
 				<a href="{{ route('signup') }}">Register</a>
 			@endif
+			<a href="{{ route('cart.index') }}" class="btn btn-info">
+				Cart
+				<span class="badge badge-light" id="nCartItems">
+					@if(Auth::check())
+						{{ count(Auth::user()->cart) }}
+					@else
+						{{ App\Models\CartItem::where('session_token', Session::token())->where('active', 1)->count(); }}
+					@endif
+				</span>
+			</a>
 		</nav>
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 			<ul class="navbar-nav">
@@ -52,6 +65,11 @@
 
 	<section id="content">
 		@yield('content')
+	</section>
+
+	<section id="customJS">
+		<script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
+		@yield('js')
 	</section>
 </body>
 </html>

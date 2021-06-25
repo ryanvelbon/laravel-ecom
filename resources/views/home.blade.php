@@ -20,10 +20,10 @@
 			<div class="card">
 				<img class="card-img-top" src="{{ asset('img/product.jpeg') }}" alt="Card image" style="width:100%">
 				<div class="card-body">
-					<a href="#" class="card-link">{{$product->title}}</a>
+					<a href="/products/{{$product->slug}}" class="card-link">{{$product->title}}</a>
 					<p><small>{{substr($product->description, 0, 60)}}</small></p>
 					<strong>€{{$product->price}}</strong>
-					<form method="POST" action="{{ route('cart.addItem') }}">
+					<form class="ajax-form" method="POST" action="{{ route('cart.addItem') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="product_id" value="{{ $product->id }}">
 						<input type="number" name="quantity" value="1">
@@ -34,4 +34,8 @@
 			</div>
 		@endforeach
 	</div>
+@endsection
+
+@section('js')
+	<script type="text/javascript" src="{{ asset('js/cart.js') }}"></script>
 @endsection
