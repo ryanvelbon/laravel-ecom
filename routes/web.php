@@ -36,3 +36,15 @@ Route::post('/cart/add-item', [CartController::class, 'addItem'])->name('cart.ad
 Route::put('/cart/{item}/remove-item', [CartController::class, 'removeItem'])->name('cart.removeItem');
 Route::put('/cart/remove-items-all', [CartController::class, 'removeItemsAll'])->name('cart.removeItemsAll');
 Route::put('/cart/{item}/update-item', [CartController::class, 'updateItem'])->name('cart.updateItem');
+
+Route::get('/checkout', [PageController::class, 'checkout'])->name('checkout');
+
+
+
+
+
+
+
+
+
+Route::get('/flash', [PageController::class, 'flash'])->name('flash');

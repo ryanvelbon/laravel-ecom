@@ -63,6 +63,16 @@
 		</div>
 	@endif
 
+	<?php $flashMsgs = app('request')->input('flashMsgs'); ?>
+	@if($flashMsgs)
+		@foreach($flashMsgs as $flash)
+			<div class="alert {{$flash[0]}} mb-0">
+				{!! $flash[1] !!}
+				<a href="{{$flash[2]}}">{{$flash[3]}}</a>
+			</div>
+		@endforeach
+	@endif
+
 	<section id="content">
 		@yield('content')
 	</section>
